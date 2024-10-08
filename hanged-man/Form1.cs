@@ -56,6 +56,33 @@ namespace hanged_man
             }
         }
 
+        public void texture()
+        {
+            string labelBackColor = "#6A9AB0";
+            string labelTextColor = "#EAD8B1";
+            string picture1BoxColor = "#3A6D8C";
+            string picture2BoxColor = "#001F3F";
+
+            Color myLabelBackColor = System.Drawing.ColorTranslator.FromHtml(labelBackColor);
+            Color myLabelTextColor = System.Drawing.ColorTranslator.FromHtml(labelTextColor);
+            Color myPicture1BoxColor = System.Drawing.ColorTranslator.FromHtml(picture1BoxColor);
+            Color myPicture2BoxColor = System.Drawing.ColorTranslator.FromHtml(picture2BoxColor);
+
+            label1.ForeColor = myLabelTextColor;
+            label2.ForeColor = myLabelTextColor;
+            label3.ForeColor = myLabelTextColor;
+            label4.ForeColor = myLabelTextColor;
+            label5.ForeColor = myLabelTextColor;
+
+            label1.BackColor = myLabelBackColor;
+            label2.BackColor = myLabelBackColor;
+            label3.BackColor = myLabelBackColor;
+            label4.BackColor = myLabelBackColor;
+            label5.BackColor = myLabelBackColor;
+
+            pictureBox2.BackColor = myPicture1BoxColor;
+            pictureBox1.BackColor = myPicture2BoxColor;
+        }
         public void kezdet()
         {
             button1.Text = "küld";
@@ -64,6 +91,7 @@ namespace hanged_man
             label2.Text = $"A feladvány hossza: {feladvany.Length}-betű";
             label3.Text = "";
             label4.Text = "";
+            label5.Text = "";
 
             for (int i = 0; i < feladvany.Length; i++)
             {
@@ -105,16 +133,19 @@ namespace hanged_man
             {
                 if (hibaSzam != 10)
                 {
+                    int nyertE = feladvany.Length;
                     label4.Text = "";
                     label1.Text = " ";
                     betuTest(Convert.ToChar(textBox1.Text));
                     for (int i = 0; i < feladvany.Length; i++)
                     {
                         if (megtalalt[i] != "?")
-                            label1.Text += $"{megtalalt[i]} ";
+                        { label1.Text += $"{megtalalt[i]} "; nyertE--; }
                         else
                             label1.Text += "? ";
                     }
+                    if (nyertE == 0)
+                        label5.Text = $"nyertél";
                     label3.Text = $"Hibázások száma: {hibaSzam}";
                     for (int i = 0; i < helytelen.Length; i++)
                         if (helytelen[i] != "")
@@ -122,7 +153,7 @@ namespace hanged_man
                 }
                 else
                 {
-                    label5.Text = $"Vesztettél";
+                    label5.Text = "vesztettél";
                 }
             }
         }
@@ -134,7 +165,7 @@ namespace hanged_man
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            kezdet();
+            kezdet(); //texture();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -150,6 +181,11 @@ namespace hanged_man
         private void button2_Click(object sender, EventArgs e)
         {
             reset();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
