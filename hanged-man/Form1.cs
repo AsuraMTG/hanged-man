@@ -35,6 +35,7 @@ namespace hanged_man
         public static string[] helytelen = new string[10];
 
         public static int hibaSzam = 0;
+
         public static void betuTest(char lekertBetű)
         {
             int hiba = 0;
@@ -54,9 +55,28 @@ namespace hanged_man
                 } 
             }
         }
-        public static void reset() 
+
+        public void kezdet()
         {
-            /*
+            button1.Text = "küld";
+            button2.Text = "új játék";
+            label1.Text = " ";
+            label2.Text = $"A feladvány hossza: {feladvany.Length}-betű";
+            label3.Text = "";
+            label4.Text = "";
+
+            for (int i = 0; i < feladvany.Length; i++)
+            {
+                label1.Text += "? ";
+                megtalalt[i] = "?";
+            }
+
+            for (int i = 0; i < helytelen.Length; i++)
+                helytelen[i] = "";
+        }
+
+        public void reset()
+        {
             label1.Text = "";
             label2.Text = "";
             label3.Text = "";
@@ -77,86 +97,56 @@ namespace hanged_man
             label2.Text = $"A feladvány hossza: {feladvany.Length}-betű";
 
             hibaSzam = 0;
-            */
+        }
+
+        public void csinal() 
+        {
+            if (textBox1.Text != "")
+            {
+                if (hibaSzam != 10)
+                {
+                    label4.Text = "";
+                    label1.Text = " ";
+                    betuTest(Convert.ToChar(textBox1.Text));
+                    for (int i = 0; i < feladvany.Length; i++)
+                    {
+                        if (megtalalt[i] != "?")
+                            label1.Text += $"{megtalalt[i]} ";
+                        else
+                            label1.Text += "? ";
+                    }
+                    label3.Text = $"Hibázások száma: {hibaSzam}";
+                    for (int i = 0; i < helytelen.Length; i++)
+                        if (helytelen[i] != "")
+                            label4.Text += $"{helytelen[i]}, ";
+                }
+                else
+                {
+                    label5.Text = $"Vesztettél";
+                }
+            }
         }
 
         public Form1()
         {
             InitializeComponent();
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            button1.Text = "küld";
-            button2.Text = "új játék";
-            label1.Text = " ";
-            label2.Text = $"A feladvány hossza: {feladvany.Length}-betű";
-            label3.Text = "";
-            label4.Text = "";
-
-            for (int i = 0; i < feladvany.Length; i++)
-            {
-                label1.Text += "? ";
-                megtalalt[i] = "?";
-            }
-
-            for (int i = 0; i < helytelen.Length; i++)
-                helytelen[i] = "";
+            kezdet();
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text != "")
-            {
-                if (hibaSzam != 10)
-                {
-                    label4.Text = "";
-                    label1.Text = " ";
-                    betuTest(Convert.ToChar(textBox1.Text));
-                    for (int i = 0; i < feladvany.Length; i++)
-                    {
-                        if (megtalalt[i] != "?")
-                            label1.Text += $"{megtalalt[i]} ";
-                        else
-                            label1.Text += "? ";
-                    }
-                    label3.Text = $"Hibázások száma: {hibaSzam}";
-                    for (int i = 0; i < helytelen.Length; i++)
-                        if (helytelen[i] != "")
-                            label4.Text += $"{helytelen[i]}, ";
-                }
-                else
-                {
-                    label5.Text = $"Vesztettél";
-                }
-            }
+            csinal();
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (textBox1.Text != "")
-            {
-                if (hibaSzam != 10)
-                {
-                    label4.Text = "";
-                    label1.Text = " ";
-                    betuTest(Convert.ToChar(textBox1.Text));
-                    for (int i = 0; i < feladvany.Length; i++)
-                    {
-                        if (megtalalt[i] != "?")
-                            label1.Text += $"{megtalalt[i]} ";
-                        else
-                            label1.Text += "? ";
-                    }
-                    label3.Text = $"Hibázások száma: {hibaSzam}";
-                    for (int i = 0; i < helytelen.Length; i++)
-                        if (helytelen[i] != "")
-                            label4.Text += $"{helytelen[i]}, ";
-                }
-                else
-                {
-                    label5.Text = $"Vesztettél";
-                }
-            }
+            csinal();
         }
+        
         private void button2_Click(object sender, EventArgs e)
         {
             reset();
